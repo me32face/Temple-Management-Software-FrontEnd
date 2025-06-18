@@ -1,0 +1,125 @@
+.expenses-container {
+  min-height: 100vh;
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.expenses-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.expenses-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.expenses-input,
+.expenses-select {
+  color: black;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s;
+  background: #f9f9f9;
+}
+
+.expenses-input:focus,
+.expenses-select:focus {
+  color: black;
+  border-color: #6c63ff;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.expenses-submit-btn {
+  grid-column: span 2;
+  padding: 12px 20px;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.expenses-submit-btn:hover {
+  background-color: #574fd6;
+}
+
+.expenses-table-container {
+  overflow-x: auto;
+}
+
+.expenses-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.expenses-table th,
+.expenses-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.expenses-table th {
+  background-color: #f1f1f1;
+  color: #444;
+}
+
+.expenses-table tr:hover {
+  background-color: #fafafa;
+}
+
+.expenses-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.expenses-btn.edit {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.expenses-btn.edit:hover {
+  background-color: #27ae60;
+}
+
+.expenses-btn.delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.expenses-btn.delete:hover {
+  background-color: #c0392b;
+}
+
+@media (max-width: 600px) {
+  .expenses-form {
+    grid-template-columns: 1fr;
+  }
+
+  .expenses-submit-btn {
+    grid-column: span 1;
+    width: 100%;
+  }
+}

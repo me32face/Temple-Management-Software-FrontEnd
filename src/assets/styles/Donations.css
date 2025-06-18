@@ -1,0 +1,133 @@
+/* Container */
+.donations-container {
+  padding: 4vh 5vw;
+  background-color: #f8f9fc;
+  min-height: 90vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Heading */
+.donations-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.donation-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.donation-form input,
+.donation-form select {
+  flex: 1 1 250px;
+  padding: 0.8em;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: 0.2s ease;
+  background-color: #fefefe;
+}
+
+.donation-form input:focus,
+.donation-form select:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+}
+
+.donation-form button {
+  padding: 0.9em 1.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.donation-form input{
+  color: black;
+}
+
+.donation-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Table Styles */
+.donation-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.donation-table thead {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.donation-table th,
+.donation-table td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 0.95rem;
+}
+
+.donation-table tr:last-child td {
+  border-bottom: none;
+}
+
+.donation-table tbody tr:hover {
+  background-color: #f4faff;
+}
+
+/* Action button */
+.donation-table button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5em 0.8em;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.25s ease;
+}
+
+.donation-table button:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  .donation-form {
+    flex-direction: column;
+  }
+
+  .donation-form input,
+  .donation-form select {
+    width: 100%;
+  }
+
+  .donation-form button {
+    width: 100%;
+  }
+
+  .donation-table th,
+  .donation-table td {
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,88 @@
+.dash-summary__container {
+  min-height: 100vh;
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.dash-summary__title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.dash-summary__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.dash-summary__card {
+  background-color: #f9fafc;
+  border: 1px solid #e4e7ec;
+  border-radius: 10px;
+  padding: 18px 14px;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.dash-summary__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.dash-summary__card h2 {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.dash-summary__card p {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #2ecc71;
+}
+
+/* Optional: Color classes for types */
+.dash-summary__card.income p {
+  color: #27ae60;
+}
+
+.dash-summary__card.expense p {
+  color: #e74c3c;
+}
+
+.dash-summary__card.balance p {
+  color: #2980b9;
+}
+
+.dash-summary__loading {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #95a5a6;
+  padding: 3rem 1rem;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .dash-summary__card {
+    padding: 14px 10px;
+  }
+
+  .dash-summary__card h2 {
+    font-size: 0.95rem;
+  }
+
+  .dash-summary__card p {
+    font-size: 1.25rem;
+  }
+}
