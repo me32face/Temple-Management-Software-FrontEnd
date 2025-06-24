@@ -16,22 +16,11 @@ const Donations = () => {
   });
 
   const token = localStorage.getItem('token');
-
   const API = import.meta.env.VITE_API_BASE_URL;
-
-
-  // Generate a unique receipt number using timestamp
-  const generateReceiptNumber = () => {
-    const now = new Date();
-    const receipt = `RCPT-${now.getFullYear()}${(now.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}-${now.getTime()}`;
-    setFormData((prev) => ({ ...prev, receiptNumber: receipt }));
-  };
 
   useEffect(() => {
     fetchDonations();
-    generateReceiptNumber();
+    fetchReceiptNumber();
   }, []);
 
   const fetchDonations = async () => {
@@ -53,6 +42,20 @@ const Donations = () => {
     }
   };
 
+  const fetchReceiptNumber = async () => {
+    try {
+      const res = await axios.get(`${API}/api/donations/next-receipt`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setFormData((prev) => ({
+        ...prev,
+        receiptNumber: res.data.receiptNumber || ''
+      }));
+    } catch (err) {
+      console.error('Failed to fetch receipt number', err);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -60,7 +63,8 @@ const Donations = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API}/api/donations`, formData, {
+      const { receiptNumber, ...dataToSend } = formData;
+      await axios.post(`${API}/api/donations`, dataToSend, {
         headers: { Authorization: `Bearer ${token}` }
       });
       Swal.fire('Success', 'Donation added', 'success');
@@ -73,8 +77,8 @@ const Donations = () => {
         paymentMethod: 'Cash',
         paymentProof: ''
       });
-      generateReceiptNumber(); // Refresh the receipt number
       fetchDonations();
+      fetchReceiptNumber();
     } catch (err) {
       console.error(err);
       Swal.fire('Error', 'Failed to add donation', 'error');
@@ -104,9 +108,8 @@ const Donations = () => {
           type="text"
           name="receiptNumber"
           value={formData.receiptNumber}
-          onChange={handleChange}
-          placeholder="Receipt Number"
           readOnly
+          placeholder="Receipt Number"
         />
         <input
           type="text"
@@ -129,6 +132,7 @@ const Donations = () => {
           value={formData.amount}
           onChange={handleChange}
           placeholder="Amount"
+          min="1"
           required
         />
         <input
@@ -173,7 +177,7 @@ const Donations = () => {
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(donations) && donations.length > 0 ? (
+          {donations.length > 0 ? (
             donations.map((d) => (
               <tr key={d._id}>
                 <td>{d.receiptNumber}</td>

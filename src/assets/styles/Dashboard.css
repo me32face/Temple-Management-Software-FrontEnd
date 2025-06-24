@@ -66,6 +66,7 @@
 }
 
 .dash-summary__loading {
+  min-height: 90vh;
   text-align: center;
   font-size: 1.1rem;
   color: #95a5a6;
