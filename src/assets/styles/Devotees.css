@@ -1,124 +1,156 @@
-.devotees-container {
-  min-height: 90vh;
-  max-width: 1000px;
-  margin: 2rem auto;
+.devotees-main-container {
   padding: 2rem;
-  background-color: #f7f9fb;
-  border-radius: 8px;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f7f7f7;
 }
 
-.devotees-title {
-  text-align: center;
+.devotees-header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5c2d91;
   margin-bottom: 1.5rem;
-  color: #2c3e50;
-  font-size: 1.8rem;
 }
 
-.devotees-form {
+.devotees-search-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.devotees-form-row {
+.devotees-input-field,
+.devotees-select-dropdown {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #000;
+  transition: border-color 0.3s ease;
+}
+
+.devotees-input-field:focus,
+.devotees-select-dropdown:focus {
+  border-color: #7a3db8;
+  outline: none;
+}
+
+.devotees-form-wrapper {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.devotees-input-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.devotees-role-checkboxes {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 1rem;
 }
 
-.devotees-input,
-.devotees-select {
-  flex: 1 1 30%;
-  min-width: 220px;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  transition: border-color 0.3s ease;
-  background-color: #fff;
-  color: #2c3e50;
+.devotees-checkbox-label {
+  font-size: 0.95rem;
 }
 
-.devotees-input:focus,
-.devotees-select:focus {
-  border-color: #2e86de;
-  outline: none;
-  box-shadow: 0 0 5px rgba(46, 134, 222, 0.3);
-}
-
-.devotees-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='14' height='14' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 140,0 70,140' fill='%23444'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 12px;
-}
-
-.devotees-submit-btn {
-  padding: 10px 20px;
-  background-color: #2e86de;
+.devotees-submit-button {
+  margin-top: 1rem;
+  background-color: #28a745;
   color: white;
+  padding: 0.6rem 1.4rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  min-width: 180px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  font-weight: bold;
 }
 
-.devotees-submit-btn:hover {
-  background-color: #2169c3;
+.devotees-submit-button:hover {
+  background-color: #218838;
 }
 
-.devotees-table {
+.devotees-table-wrapper {
+  overflow-x: auto;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.devotees-table-element {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
 }
 
-.devotees-table th,
-.devotees-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
+.devotees-table-element th,
+.devotees-table-element td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  font-size: 0.9rem;
   text-align: left;
+  vertical-align: top;
 }
 
-.devotees-table th {
-  background-color: #34495e;
-  color: #fff;
+.devotees-table-element th {
+  background-color: #ececec;
+  color: #333;
 }
 
-.devotees-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+.wrap-text {
+  word-wrap: break-word;
+  max-width: 200px;
+  white-space: normal;
 }
 
-.devotees-delete-btn {
-  background-color: #e74c3c;
-  color: white;
+.table-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.devotees-edit-button,
+.devotees-delete-button {
+  padding: 0.4rem 0.8rem;
   border: none;
-  padding: 6px 12px;
   border-radius: 4px;
+  font-size: 0.85rem;
+  color: white;
   cursor: pointer;
-  font-size: 14px;
 }
 
-.devotees-delete-btn:hover {
-  background-color: #c0392b;
+.devotees-edit-button {
+  background-color: #007bff;
 }
 
-/* Responsive */
+.devotees-edit-button:hover {
+  background-color: #0056b3;
+}
+
+.devotees-delete-button {
+  background-color: #dc3545;
+}
+
+.devotees-delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Mobile adjustments */
 @media (max-width: 768px) {
-  .devotees-form-row {
+  .devotees-search-filter,
+  .devotees-role-checkboxes {
     flex-direction: column;
   }
 
-  .devotees-input,
-  .devotees-select {
-    width: 100%;
-  }
-
-  .devotees-submit-btn {
-    width: 100%;
+  .table-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
   }
 }
+  
