@@ -29,6 +29,7 @@ const Navbar = () => {
             <li><Link className="nav-link" to="/devotees">Devotees</Link></li>
             <li><Link className="nav-link" to="/staff">Staff</Link></li>
             <li><Link className="nav-link" to="/expenses">Expenses</Link></li>
+            <li><Link className="nav-link" to="/monthly-poojas">Monthly Pooja</Link></li>
           </ul>
         )}
         <ul className="nav-links-right">

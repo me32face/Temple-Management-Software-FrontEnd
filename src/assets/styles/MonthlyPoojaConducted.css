@@ -1,0 +1,290 @@
+/* Base */
+body, .mpc-page {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #222;
+  background: #f9f9f9;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.mpc-page {
+  max-width: 960px;
+  margin: auto;
+  padding-top: 1rem;
+}
+
+/* Sections */
+.mpc-section {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.mpc-section__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Form */
+.mpc-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+}
+
+.mpc-form__input,
+.mpc-search__input {
+  color: black;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fefefe;
+  font-size: 13px;
+}
+
+.mpc-form__input:focus,
+.mpc-search__input:focus {
+  outline: none;
+  border-color: #888;
+  background: #fff;
+}
+
+/* Add/Update Button */
+.mpc-form__button {
+  background: #222;
+  color: white;
+  padding: 0.45rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 13px;
+}
+
+.mpc-form__button:hover {
+  background: #000;
+}
+
+/* Performer List */
+.mpc-personlist__item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  align-items: center;
+}
+
+.mpc-personlist__actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.mpc-personlist__actions button:hover {
+  color: #000;
+}
+
+/* Modal */
+.mpc-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.mpc-modal-content {
+  background: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.2rem 1rem;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+}
+
+.mpc-modal-content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+.mpc-modal-content p {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.mpc-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.mpc-modal__close:hover {
+  color: #333;
+}
+
+/* Year Selector */
+.mpc-yearselect {
+    color: black;
+  margin: 0.75rem 0 1rem;
+}
+
+.mpc-yearselect label {
+    color: black;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.mpc-yearselect select {
+    color: black;
+  margin-left: 0.5rem;
+  font-size: 12px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+}
+
+/* Month Block */
+.mpc-month-block {
+  margin-bottom: 0.5rem;
+}
+
+.mpc-month-block h4 {
+  font-size: 13px;
+  font-weight: 500;
+  background: #f2f2f2;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+  margin: 0.4rem 0;
+}
+
+.mpc-month-block h4:hover {
+  background: #e8e8e8;
+  border: 1px solid #ddd;
+}
+
+/* Record Block */
+.mpc-record {
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background: #fcfcfc;
+}
+
+.mpc-record input,
+.mpc-record select,
+.mpc-record textarea,
+.mpc-date-input {
+  font-size: 13px;
+  padding: 0.4rem 0.5rem;
+  margin: 0.25rem 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fdfdfd;
+  color: black;
+}
+
+.mpc-record button {
+  font-size: 12px;
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background: #2c7a7b;
+  color: white;
+  margin-right: 5px;
+}
+
+.mpc-record button:hover {
+  background: #205d5f;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .mpc-form {
+    grid-template-columns: 1fr;
+  }
+
+  .mpc-modal-content {
+    padding: 1rem;
+    max-height: 95vh;
+  }
+
+  .mpc-form__input,
+  .mpc-search__input {
+    font-size: 12px;
+  }
+
+  .mpc-modal-content h3 {
+    font-size: 14px;
+  }
+
+  .mpc-record button {
+    font-size: 11px;
+  }
+}
+
+.mpc-paid-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.mpc-paid-checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #4caf50;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  background-color: #fff;
+}
+
+.mpc-paid-checkbox input[type="checkbox"]:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.mpc-paid-checkbox input[type="checkbox"]::after {
+  content: '✓';
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 3px;
+  display: none;
+}
+
+.mpc-paid-checkbox input[type="checkbox"]:checked::after {
+  display: block;
+}

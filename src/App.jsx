@@ -12,6 +12,7 @@ import Staff from './pages/Staff';
 import Expenses from './pages/Expenses';
 import NotFound from './pages/NotFound';
 import PoojaList from './pages/PoojaList';
+import MonthlyPoojaConducted from './pages/MonthlyPoojaConducted';
 
 const App = () => (
   <Router>
@@ -26,6 +27,7 @@ const App = () => (
         <Route path="/devotees" element={<ProtectedRoute><Devotees /></ProtectedRoute>} />
         <Route path="/staff" element={<ProtectedRoute><Staff /></ProtectedRoute>} />
         <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
+        <Route path="/monthly-poojas" element={<ProtectedRoute><MonthlyPoojaConducted /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
