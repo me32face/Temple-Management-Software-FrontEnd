@@ -1,185 +1,224 @@
-/* Container */
-.pooja-form-container {
-  padding: 4vh 5vw;
-  background-color: #f7f9fc;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* Title */
-.pooja-form-title {
-  text-align: center;
-  font-size: 2rem;
-  color: #2c3e50;
-}
-
-/* Form Base */
-.pooja-form {
-  background-color: #ffffff;
+/* ========== ROOT CONTAINER ========== */
+.pfm-container {
+  display: flex;
+  gap: 2rem;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto;
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-/* Form Groups */
-.pooja-form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.pooja-form-group label {
+/* ========== PAGE TITLE ========== */
+.pfm-title {
+  text-align: center;
+  font-size: 32px;
+  color: #4a148c;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #34495e;
+  font-weight: 700;
+  text-shadow: 1px 1px 1px #fce4ec;
 }
 
-.pooja-form-group input,
-.pooja-form-group select,
-.pooja-devotee-group input,
-.pooja-devotee-group select {
-  color: black;
-  padding: 0.8em;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  background-color: #fcfcfc;
-  transition: border-color 0.3s;
+/* ========== FORM PANEL ========== */
+.pfm-form {
+  flex: 1;
+  min-width: 360px;
+  max-width: 500px;
+  background: #fff8e1;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInLeft 0.5s ease-in-out;
 }
 
-.pooja-form-group input:focus,
-.pooja-form-group select:focus {
-  border-color: #3498db;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
-}
-
-/* Devotees Section */
-.pooja-devotee-section {
+/* ========== FORM FIELDS ========== */
+.pfm-field {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.pooja-devotee-group {
+.pfm-label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #5d4037;
+  font-size: 15px;
+}
+
+.pfm-input,
+.pfm-select {
+  color: black;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid #ffab91;
+  border-radius: 8px;
+  background-color: #fff3e0;
+  transition: all 0.3s;
+}
+
+.pfm-input:focus,
+.pfm-select:focus {
+  color: black;
+  outline: none;
+  border-color: #ff7043;
+  background-color: #ffffff;
+  box-shadow: 0 0 4px 2px rgba(255, 112, 67, 0.2);
+}
+
+.pfm-hint {
+  font-size: 12px;
+  color: #8d6e63;
+  margin-top: 0.25rem;
+}
+
+/* ========== DEVOTEE FIELDS ========== */
+.pfm-devotee-section {
+  background-color: #e1f5fe;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  border: 1px solid #81d4fa;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.pfm-devotee-entry {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
-.pooja-devotee-group input {
-  flex: 1 1 200px;
+.pfm-input--devotee-name,
+.pfm-input--devotee-nakshathra {
+  color: black;
+  flex: 1;
+  min-width: 130px;
 }
 
-.pooja-remove-btn {
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 0.4em 0.8em;
+/* ========== BUTTONS ========== */
+.pfm-btn {
+  padding: 10px 16px;
+  font-size: 14px;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pooja-remove-btn:hover {
-  background-color: #c0392b;
-}
-
-.pooja-add-btn {
-  margin-top: 0.5rem;
-  align-self: flex-start;
-  background-color: #27ae60;
-  color: #fff;
-  padding: 0.6em 1em;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.pooja-add-btn:hover {
-  background-color: #1e8449;
-}
-
-/* Submit Button */
-.pooja-submit-btn {
-  margin-top: 1rem;
-  background-color: #3498db;
-  color: #fff;
-  padding: 0.9em 1.2em;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: 0.3s ease;
+  border: none;
 }
 
-.pooja-submit-btn:hover {
-  background-color: #2980b9;
-}
-
-/* Receipt Section */
-.pooja-receipt-container {
-  margin-top: 3rem;
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.pooja-receipt-container h3 {
-  margin-bottom: 1rem;
-  color: #2c3e50;
-}
-
-.pooja-receipt-container p {
-  margin: 0.4rem 0;
-  font-size: 1rem;
-}
-
-.pooja-receipt-container ul {
-  padding-left: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.pooja-print-btn {
-  margin-top: 1rem;
-  background-color: #2ecc71;
+.pfm-btn--add {
+  background-color: #00bfa5;
   color: white;
-  border: none;
-  padding: 0.8em 1.2em;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
 }
 
-.pooja-print-btn:hover {
-  background-color: #27ae60;
+.pfm-btn--add:hover {
+  background-color: #00796b;
 }
 
-/* Responsive */
-@media screen and (max-width: 600px) {
-  .pooja-devotee-group {
+.pfm-btn--remove {
+  background-color: #e53935;
+  color: white;
+}
+
+.pfm-btn--remove:hover {
+  background-color: #b71c1c;
+}
+
+.pfm-btn--submit {
+  background-color: #8e24aa;
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.pfm-btn--submit:hover {
+  background-color: #6a1b9a;
+}
+
+.pfm-btn--print {
+  background-color: #039be5;
+  color: white;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.pfm-btn--print:hover {
+  background-color: #0277bd;
+}
+
+/* ========== RECEIPT PANEL ========== */
+.pfm-receipt {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  background: #f3e5f5;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInRight 0.5s ease-in-out;
+}
+
+.pfm-receipt-title {
+  font-size: 22px;
+  color: #4a148c;
+  margin-bottom: 1rem;
+  border-bottom: 2px dashed #ba68c8;
+  padding-bottom: 0.5rem;
+}
+
+.pfm-receipt p {
+  margin: 0.4rem 0;
+  color: #4e342e;
+  font-size: 15px;
+}
+
+.pfm-receipt-devotees {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  list-style-type: square;
+  color: #5e35b1;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .pfm-container {
     flex-direction: column;
-    align-items: stretch;
+    padding: 1rem;
   }
 
-  .pooja-submit-btn,
-  .pooja-add-btn,
-  .pooja-remove-btn,
-  .pooja-print-btn {
+  .pfm-form,
+  .pfm-receipt {
     width: 100%;
   }
 }
