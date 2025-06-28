@@ -37,7 +37,11 @@ const MonthlyPoojaConducted = () => {
       });
       setPersons(res.data);
     } catch (err) {
-      Swal.fire('Error', 'Failed to fetch performers', 'error');
+      if (err.response && err.response.status === 404) {
+        Swal.fire('Error', 'Backend route not found (404)', 'error');
+      } else {
+        Swal.fire('Error', 'Backend is likely waking up. Try again in 5 seconds.', 'info');
+      }
     }
   };
 
