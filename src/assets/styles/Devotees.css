@@ -2,6 +2,7 @@
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f7f7f7;
+  min-height: 100vh;
 }
 
 .devotees-header-title {
