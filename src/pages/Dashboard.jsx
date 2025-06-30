@@ -3,6 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/Dashboard.css';
+import LoadingPage from '../components/Loading';
 
 const DashboardSummary = () => {
   const [data, setData] = useState(null);
@@ -31,7 +32,7 @@ const DashboardSummary = () => {
   }, [navigate, API]);
 
   if (!data) {
-    return <div className="dash-summary__loading">Loading dashboard...</div>;
+    return <LoadingPage />;
   }
 
   return (

@@ -13,6 +13,7 @@ import Expenses from './pages/Expenses';
 import NotFound from './pages/NotFound';
 import PoojaList from './pages/PoojaList';
 import MonthlyPoojaConducted from './pages/MonthlyPoojaConducted';
+import LoadingPage from './components/Loading';
 
 const App = () => (
   <Router>
