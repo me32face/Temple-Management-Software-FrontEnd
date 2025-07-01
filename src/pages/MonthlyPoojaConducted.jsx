@@ -18,7 +18,7 @@ const MonthlyPoojaConducted = () => {
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [year, setYear] = useState(2025);
   const [recordsByMonth, setRecordsByMonth] = useState({});
-  const [newPerson, setNewPerson] = useState({ name: '', phone: '', nakshatra: '', address: '' });
+  const [newPerson, setNewPerson] = useState({ name: '', phone: '', nakshatra: '', address: '', poojaName: '' });
   const [expandedMonths, setExpandedMonths] = useState({});
   const [editStates, setEditStates] = useState({});
   const [editPerson, setEditPerson] = useState(null);
@@ -48,272 +48,266 @@ const MonthlyPoojaConducted = () => {
   const handleAddOrUpdatePerson = async (e) => {
     e.preventDefault();
     try {
-        if (editPerson) {
+      if (editPerson) {
         await axios.put(`${API}/api/monthly-pooja/persons/${editPerson._id}`, newPerson, {
-            headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
         setEditPerson(null);
         Swal.fire('Updated', `${newPerson.name}'s details were updated successfully`, 'success');
-        } else {
+      } else {
         await axios.post(`${API}/api/monthly-pooja/persons`, newPerson, {
-            headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
         Swal.fire('Added', 'New performer added successfully', 'success');
-        }
-      setNewPerson({ name: '', phone: '', nakshatra: '', address: '' });
+      }
+      setNewPerson({ name: '', phone: '', nakshatra: '', address: '', poojaName: '' });
       fetchPersons();
     } catch (err) {
       Swal.fire('Error', 'Failed to save performer', 'error');
     }
   };
 
-    const handleDeletePerson = async (id) => {
+  const handleDeletePerson = async (id) => {
     const firstConfirm = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you really want to delete this performer?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, continue',
-        cancelButtonText: 'Cancel',
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this performer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, continue',
+      cancelButtonText: 'Cancel',
     });
 
     if (firstConfirm.isConfirmed) {
-        const secondConfirm = await Swal.fire({
+      const secondConfirm = await Swal.fire({
         title: 'Final Confirmation',
         text: 'This action is irreversible. Confirm deletion?',
         icon: 'error',
         showCancelButton: true,
         confirmButtonText: 'Yes, delete permanently',
         cancelButtonText: 'Cancel',
+      });
+
+      if (secondConfirm.isConfirmed) {
+        try {
+          await axios.delete(`${API}/api/monthly-pooja/persons/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          fetchPersons();
+          Swal.fire('Deleted', 'Person deleted successfully', 'success');
+        } catch (err) {
+          Swal.fire('Error', 'Failed to delete person', 'error');
+        }
+      }
+    }
+  };
+
+  const openModal = async (person, yearOverride = null) => {
+    try {
+      setSelectedPerson(person);
+      setModalOpen(true);
+
+      const res = await axios.get(`${API}/api/monthly-pooja/persons/${person._id}/records`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const selectedYear = yearOverride !== null ? yearOverride : year;
+
+      const map = {};
+      res.data
+        .filter((r) => r.year === selectedYear)
+        .forEach((r) => {
+          if (!map[r.month]) map[r.month] = [];
+          map[r.month].push({
+            ...r,
+            isNew: false,
+            dateObjects: r.dates.map((d) => new Date(selectedYear, months.indexOf(r.month), d))
+          });
         });
 
-        if (secondConfirm.isConfirmed) {
-        try {
-            await axios.delete(`${API}/api/monthly-pooja/persons/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-            });
-            fetchPersons();
-            Swal.fire('Deleted', 'Person deleted successfully', 'success');
-        } catch (err) {
-            Swal.fire('Error', 'Failed to delete person', 'error');
-        }
-        }
+      setRecordsByMonth(map);
+    } catch (err) {
+      Swal.fire('Error', 'Failed to load records', 'error');
     }
-    };
+  };
 
-    const openModal = async (person, yearOverride = null) => {
-        try {
-            setSelectedPerson(person);
-            setModalOpen(true);
-
-            const res = await axios.get(`${API}/api/monthly-pooja/persons/${person._id}/records`, {
-            headers: { Authorization: `Bearer ${token}` }
-            });
-
-            const selectedYear = yearOverride !== null ? yearOverride : year;
-
-            const map = {};
-            res.data
-            .filter((r) => r.year === selectedYear)
-            .forEach((r) => {
-                if (!map[r.month]) map[r.month] = [];
-                map[r.month].push({
-                ...r,
-                isNew: false,
-                dateObjects: r.dates.map((d) => new Date(selectedYear, months.indexOf(r.month), d))
-                });
-            });
-
-            setRecordsByMonth(map);
-        } catch (err) {
-            Swal.fire('Error', 'Failed to load records', 'error');
-        }
-    };
-
-    const toggleMonth = (month) => {
+  const toggleMonth = (month) => {
     setExpandedMonths({ ...expandedMonths, [month]: !expandedMonths[month] });
 
     if (!recordsByMonth[month] || recordsByMonth[month].length === 0) {
-        setRecordsByMonth({
+      setRecordsByMonth({
         ...recordsByMonth,
         [month]: [{
-            tempId: Date.now().toString(),
-            person: selectedPerson._id,
-            year,
-            month,
-            dateObjects: [],
-            amount: '',
-            isPaid: false,
-            paymentMode: '',
-            notes: '',
-            isNew: true
+          tempId: Date.now().toString(),
+          person: selectedPerson._id,
+          year,
+          month,
+          dateObjects: [],
+          amount: '',
+          isPaid: false,
+          paymentMode: '',
+          notes: '',
+          isNew: true
         }]
-        });
+      });
     }
-    };
-    
+  };
+
   const handleRecordChange = (month, idx, field, value) => {
     const updated = { ...recordsByMonth };
     updated[month][idx][field] = value;
     setRecordsByMonth(updated);
   };
 
-    const toggleEdit = (month, idx) => {
+  const toggleEdit = (month, idx) => {
     const key = `${month}_${idx}`;
     const r = recordsByMonth[month][idx];
 
-    // If it's not already editing, ask confirmation
     if (!editStates[key]) {
-        Swal.fire({
+      Swal.fire({
         title: 'Edit Record',
         text: 'Do you want to edit this record?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Yes, Edit',
         cancelButtonText: 'Cancel',
-        }).then(result => {
+      }).then(result => {
         if (result.isConfirmed) {
-            setEditStates(prev => ({ ...prev, [key]: true }));
+          setEditStates(prev => ({ ...prev, [key]: true }));
         }
-        });
+      });
     } else {
-        // If already in edit mode, toggle off
-        setEditStates(prev => ({ ...prev, [key]: false }));
+      setEditStates(prev => ({ ...prev, [key]: false }));
     }
-    };
+  };
 
-    const cancelRecord = (month, idx) => {
-        const r = recordsByMonth[month][idx];
-
-        // If new, remove the whole entry
-        if (r.isNew) {
-            const updated = { ...recordsByMonth };
-            updated[month].splice(idx, 1);
-            if (updated[month].length === 0) delete updated[month];
-            setRecordsByMonth(updated);
-        } else {
-            // If existing, just exit edit mode
-            toggleEdit(month, idx);
-        }
-    };
-
-    const clearRecord = (month, idx) => {
+  const cancelRecord = (month, idx) => {
     const r = recordsByMonth[month][idx];
 
-    // If it's a new unsaved record, remove it entirely
     if (r.isNew) {
-        const updated = { ...recordsByMonth };
-        updated[month].splice(idx, 1);
-        if (updated[month].length === 0) delete updated[month];
-        setRecordsByMonth(updated);
+      const updated = { ...recordsByMonth };
+      updated[month].splice(idx, 1);
+      if (updated[month].length === 0) delete updated[month];
+      setRecordsByMonth(updated);
     } else {
-        // If it's an existing record, just clear fields
-        Swal.fire({
+      toggleEdit(month, idx);
+    }
+  };
+
+  const clearRecord = (month, idx) => {
+    const r = recordsByMonth[month][idx];
+
+    if (r.isNew) {
+      const updated = { ...recordsByMonth };
+      updated[month].splice(idx, 1);
+      if (updated[month].length === 0) delete updated[month];
+      setRecordsByMonth(updated);
+    } else {
+      Swal.fire({
         title: 'Clear Record?',
         text: 'This will clear the current values but keep the entry.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes, Clear',
         cancelButtonText: 'Cancel'
-        }).then(result => {
+      }).then(result => {
         if (result.isConfirmed) {
-            const updated = { ...recordsByMonth };
-            updated[month][idx] = {
+          const updated = { ...recordsByMonth };
+          updated[month][idx] = {
             ...r,
             dateObjects: [],
             amount: '',
             isPaid: false,
             paymentMode: '',
             notes: '',
-            };
-            setRecordsByMonth(updated);
+          };
+          setRecordsByMonth(updated);
         }
-        });
+      });
     }
-    };
+  };
 
-    const saveRecord = async (month, idx) => {
+  const saveRecord = async (month, idx) => {
     const r = recordsByMonth[month][idx];
 
     const confirm = await Swal.fire({
-        title: 'Save Record?',
-        text: 'Do you want to save this record?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Save',
-        cancelButtonText: 'Cancel'
+      title: 'Save Record?',
+      text: 'Do you want to save this record?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Save',
+      cancelButtonText: 'Cancel'
     });
 
     if (!confirm.isConfirmed) return;
 
     try {
-        const payload = {
+      const payload = {
         ...r,
         dates: r.dateObjects.map(d => d.getDate()),
         year,
         month
-        };
+      };
 
-        if (r.isNew) {
-        // 👇 Frontend check before posting
+      if (r.isNew) {
         const existingRecord = recordsByMonth[month]?.find(rec => !rec.isNew);
         if (existingRecord) {
-            Swal.fire('Not Allowed', `A record already exists for ${month} ${year}. Only one per month is allowed.`, 'warning');
-            return;
+          Swal.fire('Not Allowed', `A record already exists for ${month} ${year}. Only one per month is allowed.`, 'warning');
+          return;
         }
 
         const { tempId, isNew, dateObjects, ...postPayload } = payload;
         await axios.post(`${API}/api/monthly-pooja/records`, postPayload, {
-            headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
-        } else {
+      } else {
         const { dateObjects, ...updatePayload } = payload;
         await axios.put(`${API}/api/monthly-pooja/records/${r._id}`, updatePayload, {
-            headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
-        }
+      }
 
-        Swal.fire('Saved', `Record for ${month} saved`, 'success');
+      Swal.fire('Saved', `Record for ${month} saved`, 'success');
 
-        setEditStates(prev => {
+      setEditStates(prev => {
         const newState = { ...prev };
         delete newState[`${month}_${idx}`];
         return newState;
-        });
+      });
 
-        if (selectedPerson) {
-        await openModal(selectedPerson); // Refresh records
-        }
+      if (selectedPerson) {
+        await openModal(selectedPerson);
+      }
     } catch (err) {
-        if (err.response?.data?.error?.includes('already exists')) {
+      if (err.response?.data?.error?.includes('already exists')) {
         Swal.fire('Not Allowed', err.response.data.error, 'warning');
-        } else {
+      } else {
         Swal.fire('Error', 'Failed to save record', 'error');
-        }
+      }
     }
-    };
+  };
 
-    const handleEditClick = (person) => {
+  const handleEditClick = (person) => {
     Swal.fire({
-        title: 'Edit Performer',
-        text: `Do you want to edit details for ${person.name}?`,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Edit',
-        cancelButtonText: 'Cancel',
+      title: 'Edit Performer',
+      text: `Do you want to edit details for ${person.name}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Edit',
+      cancelButtonText: 'Cancel',
     }).then((result) => {
-        if (result.isConfirmed) {
+      if (result.isConfirmed) {
         setEditPerson(person);
         setNewPerson({
-            name: person.name,
-            phone: person.phone,
-            nakshatra: person.nakshatra,
-            address: person.address,
+          name: person.name,
+          phone: person.phone,
+          nakshatra: person.nakshatra,
+          address: person.address,
+          poojaName: person.poojaName || ''
         });
-        }
+      }
     });
-    };
-    
+  };
+
 
   return (
     <div className="mpc-page">
@@ -324,6 +318,7 @@ const MonthlyPoojaConducted = () => {
           <input className="mpc-form__input" placeholder="Phone" value={newPerson.phone} onChange={(e) => setNewPerson({ ...newPerson, phone: e.target.value })} required />
           <input className="mpc-form__input" placeholder="Nakshatra" value={newPerson.nakshatra} onChange={(e) => setNewPerson({ ...newPerson, nakshatra: e.target.value })} />
           <input className="mpc-form__input" placeholder="Address" value={newPerson.address} onChange={(e) => setNewPerson({ ...newPerson, address: e.target.value })} />
+          <input className="mpc-form__input" placeholder="Pooja Name" value={newPerson.poojaName} onChange={(e) => setNewPerson({ ...newPerson, poojaName: e.target.value })} />
           <button className="mpc-form__button" type="submit">{editPerson ? 'Update' : 'Add'}</button>
         </form>
       </div>
@@ -335,11 +330,13 @@ const MonthlyPoojaConducted = () => {
           {persons.filter(p =>
             p.name.toLowerCase().includes(searchQuery) ||
             p.phone.includes(searchQuery) ||
-            p.nakshatra.toLowerCase().includes(searchQuery)
-          ).map((p) => (
+            p.nakshatra.toLowerCase().includes(searchQuery) ||
+            (p.poojaName && p.poojaName.toLowerCase().includes(searchQuery))
+          )
+          .map((p) => (
             <li className="mpc-personlist__item" key={p._id}>
             <div className="mpc-personlist__info">
-                <span>{p.name} – {p.nakshatra} – {p.phone}</span>
+                <span>{p.name} – {p.nakshatra} – {p.phone} – {p.poojaName || '—'}</span>
             </div>
             <div className="mpc-personlist__actions">
                 <button className="mpc-personlist__view" onClick={() => openModal(p)}>👁️ View</button>
@@ -355,7 +352,7 @@ const MonthlyPoojaConducted = () => {
         <div className="mpc-modal">
           <div className="mpc-modal-content">
             <button className="mpc-modal__close" onClick={() => setModalOpen(false)}>×</button>
-            <h3>{selectedPerson.name} · {selectedPerson.nakshatra}</h3>
+            <h3>{selectedPerson.name} · {selectedPerson.nakshatra} · {selectedPerson.poojaName || '—'}</h3>
             <p>📞 {selectedPerson.phone} · 🏠 {selectedPerson.address}</p>
 
             <div className="mpc-yearselect">
