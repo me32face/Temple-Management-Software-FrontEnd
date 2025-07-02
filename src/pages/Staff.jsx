@@ -135,7 +135,7 @@ const Staff = () => {
       <input
         type="text"
         className="staff-alt-search"
-        placeholder="Search by name..."
+        placeholder="Search..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />

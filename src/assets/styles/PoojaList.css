@@ -1,27 +1,32 @@
 /* Layout & wrappers */
 .pl-container {
   max-width: 960px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 1rem auto;
+  padding: 0 0.75rem;
   min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
 }
 .pl-header {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-align: center;
-  color: #2e3a59;
+  color: #f3e5f5;
+  margin-bottom: 0.5rem;
 }
 .pl-search-wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 .pl-search-input {
   width: 100%;
-  max-width: 400px;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  border: 1px solid #bbb;
+  max-width: 350px;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  border: 1px solid #555;
   border-radius: 4px;
+  background-color: #1e1e1e;
+  color: #fff;
 }
 
 /* Table styling */
@@ -31,93 +36,117 @@
 .pl-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  background-color: #1c1c1c;
 }
 .pl-table th, .pl-table td {
-  padding: 0.5rem;
+  padding: 0.4rem;
   text-align: left;
+  border-bottom: 1px solid #333;
 }
 .pl-table th {
-  background-color: #f3f4f6;
-  color: #333;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
 }
-.pl-row-even { background-color: #fff; }
-.pl-row-odd  { background-color: #fafafa; }
+.pl-row-even { background-color: #1a1a1a; }
+.pl-row-odd  { background-color: #141414; }
 .pl-devotees-cell {
-  display: flex; flex-wrap: wrap; gap: 0.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 .pl-devotee-pill {
   display: inline-block;
-  background: #e1f5fe;
-  color: #0277bd;
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  border-radius: 12px;
+  background: #37474f;
+  color: #81d4fa;
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  border-radius: 10px;
 }
 
 /* Buttons */
 .pl-btn {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
   margin: 0 0.15rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
-.pl-btn-edit { background-color: #4fc3f7; color: #fff; }
-.pl-btn-delete { background-color: #f06292; color: #fff; opacity: 0.9;}
-.pl-btn-edit:hover { opacity: 0.85; }
-.pl-btn-delete:hover { opacity: 0.85; }
+.pl-btn-edit {
+  background-color: #29b6f6;
+  color: #fff;
+}
+.pl-btn-delete {
+  background-color: #ec407a;
+  color: #fff;
+}
+.pl-btn-edit:hover,
+.pl-btn-delete:hover {
+  opacity: 0.85;
+}
 
 /* Modal overlay */
 .pl-modal-overlay {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.45);
-  display: flex; justify-content: center; align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 .pl-modal {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
+  background: #2a2a2a;
+  padding: 1rem;
+  border-radius: 6px;
   width: 90%;
-  max-width: 360px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  max-width: 320px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 .pl-modal-header {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: #2e3a59;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: #f8bbd0;
 }
 .pl-edit-form .pl-input {
   width: 100%;
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  border: 1px solid #ccc;
+  margin-bottom: 0.6rem;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  border: 1px solid #444;
   border-radius: 4px;
+  background-color: #1e1e1e;
+  color: #fff;
 }
 .pl-modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 .pl-btn-update {
-  background: #81c784;
+  background: #66bb6a;
   color: #fff;
 }
 .pl-btn-cancel {
-  background: #e57373;
+  background: #ef5350;
   color: #fff;
 }
-.pl-btn-update:hover, .pl-btn-cancel:hover {
+.pl-btn-update:hover,
+.pl-btn-cancel:hover {
   opacity: 0.85;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-  .pl-table th, .pl-table td { font-size: 0.75rem; padding: 0.4rem; }
-  .pl-btn { font-size: 0.7rem; padding: 0.25rem 0.5rem; }
+  .pl-table th, .pl-table td {
+    font-size: 0.7rem;
+    padding: 0.3rem;
+  }
+  .pl-btn {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+  }
 }

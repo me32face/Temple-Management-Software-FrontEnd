@@ -1,25 +1,26 @@
 /* Container */
 .donations-container {
   padding: 4vh 5vw;
-  background-color: #f8f9fc;
+  background-color: #1e1e1e;
   min-height: 90vh;
   font-family: 'Segoe UI', sans-serif;
+  color: #f0f0f0;
 }
 
 /* Heading */
 .donations-container h2 {
   text-align: center;
-  font-size: 2rem;
-  color: #2c3e50;
+  font-size: 1.5rem; /* reduced from 2rem */
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
 /* Form Styles */
 .donation-form {
-  background-color: #ffffff;
+  background-color: #2a2a2a;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -29,25 +30,25 @@
 .donation-form input,
 .donation-form select {
   flex: 1 1 250px;
-  padding: 0.8em;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+  padding: 0.6em; /* slightly reduced padding */
+  font-size: 0.875rem; /* reduced from 1rem */
+  border: 1px solid #444;
   border-radius: 8px;
   transition: 0.2s ease;
-  background-color: #fefefe;
-  color: black;
+  background-color: #3a3a3a;
+  color: #f0f0f0;
 }
 
 .donation-form input:focus,
 .donation-form select:focus {
   border-color: #3498db;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
 }
 
 .donation-form button {
-  padding: 0.9em 1.2em;
-  font-size: 1rem;
+  padding: 0.7em 1em; /* slightly reduced */
+  font-size: 0.875rem; /* reduced from 1rem */
   font-weight: 600;
   background-color: #3498db;
   color: #fff;
@@ -55,10 +56,6 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.25s ease;
-}
-
-.donation-form input{
-  color: black;
 }
 
 .donation-form button:hover {
@@ -69,10 +66,10 @@
 .donation-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #ffffff;
+  background-color: #2a2a2a;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .donation-table thead {
@@ -82,10 +79,10 @@
 
 .donation-table th,
 .donation-table td {
-  padding: 0.9rem 1rem;
+  padding: 0.8rem 0.9rem; /* slightly reduced */
   text-align: left;
-  border-bottom: 1px solid #eaeaea;
-  font-size: 0.95rem;
+  border-bottom: 1px solid #444;
+  font-size: 0.85rem; /* reduced from 0.95rem */
 }
 
 .donation-table tr:last-child td {
@@ -93,7 +90,7 @@
 }
 
 .donation-table tbody tr:hover {
-  background-color: #f4faff;
+  background-color: #3c3c3c;
 }
 
 /* Action button */
@@ -101,10 +98,10 @@
   background-color: #e74c3c;
   color: #fff;
   border: none;
-  padding: 0.5em 0.8em;
+  padding: 0.4em 0.6em; /* slightly smaller */
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* reduced from 0.9rem */
   transition: background-color 0.25s ease;
 }
 
@@ -119,16 +116,13 @@
   }
 
   .donation-form input,
-  .donation-form select {
-    width: 100%;
-  }
-
+  .donation-form select,
   .donation-form button {
     width: 100%;
   }
 
   .donation-table th,
   .donation-table td {
-    font-size: 0.85rem;
+    font-size: 0.75rem; /* reduced from 0.85rem */
   }
 }

@@ -1,11 +1,11 @@
 /* ========== ROOT CONTAINER ========== */
 .pfm-container {
   display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  background: linear-gradient(to right, #ffecd2, #fcb69f);
-  border-radius: 16px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(to right, #2c2c2c, #1e1e1e);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -14,74 +14,73 @@
 /* ========== PAGE TITLE ========== */
 .pfm-title {
   text-align: center;
-  font-size: 32px;
-  color: #4a148c;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-  text-shadow: 1px 1px 1px #fce4ec;
+  font-size: 20px;
+  color: #e1bee7;
+  margin: 0.5rem 0;
+  font-weight: 600;
+  text-shadow: 1px 1px 1px #4a148c;
 }
 
 /* ========== FORM PANEL ========== */
 .pfm-form {
   flex: 1;
-  min-width: 360px;
-  max-width: 500px;
-  background: #fff8e1;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  animation: fadeInLeft 0.5s ease-in-out;
+  min-width: 280px;
+  max-width: 400px;
+  background: #2a2a2a;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  animation: fadeInLeft 0.4s ease-in-out;
 }
 
 /* ========== FORM FIELDS ========== */
 .pfm-field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .pfm-label {
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: #5d4037;
-  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #e0e0e0;
+  font-size: 12px;
 }
 
 .pfm-input,
 .pfm-select {
-  color: black;
-  padding: 10px;
-  font-size: 14px;
-  border: 2px solid #ffab91;
-  border-radius: 8px;
-  background-color: #fff3e0;
+  color: #f0f0f0;
+  padding: 6px;
+  font-size: 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #3a3a3a;
   transition: all 0.3s;
 }
 
 .pfm-input:focus,
 .pfm-select:focus {
-  color: black;
+  color: #fff;
   outline: none;
-  border-color: #ff7043;
-  background-color: #ffffff;
-  box-shadow: 0 0 4px 2px rgba(255, 112, 67, 0.2);
+  border-color: #ab47bc;
+  background-color: #2c2c2c;
+  box-shadow: 0 0 3px 1px rgba(171, 71, 188, 0.3);
 }
 
 .pfm-hint {
-  font-size: 12px;
-  color: #8d6e63;
+  font-size: 10px;
+  color: #aaa;
   margin-top: 0.25rem;
 }
 
 /* ========== DEVOTEE FIELDS ========== */
 .pfm-devotee-section {
-  background-color: #e1f5fe;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-top: 1rem;
-  border: 1px solid #81d4fa;
-  animation: fadeIn 0.5s ease-in;
+  background-color: #263238;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-top: 0.75rem;
+  border: 1px solid #546e7a;
+  animation: fadeIn 0.4s ease-in;
 }
 
 .pfm-devotee-entry {
@@ -93,17 +92,16 @@
 
 .pfm-input--devotee-name,
 .pfm-input--devotee-nakshathra {
-  color: black;
   flex: 1;
-  min-width: 130px;
+  min-width: 100px;
 }
 
 /* ========== BUTTONS ========== */
 .pfm-btn {
-  padding: 10px 16px;
-  font-size: 14px;
-  border-radius: 6px;
-  font-weight: 600;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  font-weight: 500;
   cursor: pointer;
   transition: 0.3s ease;
   border: none;
@@ -131,7 +129,7 @@
   background-color: #8e24aa;
   color: white;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .pfm-btn--submit:hover {
@@ -141,7 +139,7 @@
 .pfm-btn--print {
   background-color: #039be5;
   color: white;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   width: 100%;
 }
 
@@ -152,41 +150,42 @@
 /* ========== RECEIPT PANEL ========== */
 .pfm-receipt {
   flex: 1;
-  min-width: 300px;
-  max-width: 400px;
-  background: #f3e5f5;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  animation: fadeInRight 0.5s ease-in-out;
+  min-width: 250px;
+  max-width: 350px;
+  background: #3a2c4a;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  animation: fadeInRight 0.4s ease-in-out;
 }
 
 .pfm-receipt-title {
-  font-size: 22px;
-  color: #4a148c;
-  margin-bottom: 1rem;
-  border-bottom: 2px dashed #ba68c8;
-  padding-bottom: 0.5rem;
+  font-size: 16px;
+  color: #e1bee7;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px dashed #ba68c8;
+  padding-bottom: 0.4rem;
 }
 
 .pfm-receipt p {
-  margin: 0.4rem 0;
-  color: #4e342e;
-  font-size: 15px;
+  margin: 0.3rem 0;
+  color: #ddd;
+  font-size: 12px;
 }
 
 .pfm-receipt-devotees {
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   padding-left: 1rem;
   list-style-type: square;
-  color: #5e35b1;
+  color: #ce93d8;
+  font-size: 12px;
 }
 
 /* ========== ANIMATIONS ========== */
 @keyframes fadeInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-20px);
   }
   100% {
     opacity: 1;
@@ -197,7 +196,7 @@
 @keyframes fadeInRight {
   0% {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(20px);
   }
   100% {
     opacity: 1;
@@ -214,7 +213,7 @@
 @media (max-width: 900px) {
   .pfm-container {
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .pfm-form,

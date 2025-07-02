@@ -1,18 +1,32 @@
-/* body {
-  font-family: Arial, sans-serif;
-  background: #f8f9fa;
+/* Force dark theme globally */
+body, #root, .container {
+  background-color: #1e1e1e !important;
+  color: #f0f0f0 !important;
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.container {
-  padding: 20px;
-}
-
-h1, h2 {
-  color: #343a40;
+/* Optional: style consistency */
+h1, h2, h3, h4, h5, h6 {
+  color: #f0f0f0;
 }
 
 button {
-  margin-top: 10px;
-} */
+  color: #fff;
+  background-color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+.container {
+  min-width: 90vw;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: transparent; /* or none */
+}

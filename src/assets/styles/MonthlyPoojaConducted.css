@@ -2,8 +2,8 @@
 body, .mpc-page {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: #222;
-  background: #f9f9f9;
+  color: #e0e0e0;
+  background: #121212;
   margin: 0;
   min-height: 100vh;
 }
@@ -11,53 +11,53 @@ body, .mpc-page {
 .mpc-page {
   max-width: 960px;
   margin: auto;
-  padding-top: 1rem;
 }
 
 /* Sections */
 .mpc-section {
-  background: #fff;
-  padding: 1rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  background: #1e1e1e;
+  padding: 0.8rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
 }
 
 .mpc-section__title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  color: #f3e5f5;
+  margin-bottom: 0.6rem;
 }
 
 /* Form */
 .mpc-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .mpc-form__input,
 .mpc-search__input {
-  color: black;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #ccc;
+  color: #fff;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid #444;
   border-radius: 4px;
-  background: #fefefe;
+  background: #1c1c1c;
   font-size: 13px;
 }
 
 .mpc-form__input:focus,
 .mpc-search__input:focus {
   outline: none;
-  border-color: #888;
-  background: #fff;
+  border-color: #777;
+  background: #232323;
 }
 
 /* Add/Update Button */
 .mpc-form__button {
-  background: #222;
+  background: #333;
   color: white;
-  padding: 0.45rem 0.8rem;
+  padding: 0.4rem 0.7rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -74,29 +74,30 @@ body, .mpc-page {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #333;
   font-size: 13px;
   align-items: center;
+  background: #1a1a1a;
 }
 
 .mpc-personlist__actions button {
   background: none;
   border: none;
   cursor: pointer;
-  color: #555;
+  color: #aaa;
   font-size: 12px;
   margin-left: 6px;
 }
 
 .mpc-personlist__actions button:hover {
-  color: #000;
+  color: #fff;
 }
 
 /* Modal */
 .mpc-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,29 +106,29 @@ body, .mpc-page {
 }
 
 .mpc-modal-content {
-  background: #fff;
-  border-radius: 8px;
+  background: #1e1e1e;
+  border-radius: 6px;
   width: 100%;
   max-width: 520px;
   max-height: 90vh;
   overflow-y: auto;
-  padding: 1.2rem 1rem;
+  padding: 1rem 0.9rem;
   position: relative;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   font-size: 13px;
 }
 
 .mpc-modal-content h3 {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
-  color: #222;
+  color: #e0e0e0;
 }
 
 .mpc-modal-content p {
   font-size: 12px;
-  color: #555;
-  margin-bottom: 8px;
+  color: #aaa;
+  margin-bottom: 6px;
 }
 
 .mpc-modal__close {
@@ -137,34 +138,34 @@ body, .mpc-page {
   font-size: 18px;
   background: none;
   border: none;
-  color: #aaa;
+  color: #888;
   cursor: pointer;
 }
 
 .mpc-modal__close:hover {
-  color: #333;
+  color: #fff;
 }
 
 /* Year Selector */
 .mpc-yearselect {
-    color: black;
-  margin: 0.75rem 0 1rem;
+  color: #ddd;
+  margin: 0.6rem 0 1rem;
 }
 
 .mpc-yearselect label {
-    color: black;
+  color: #ccc;
   font-size: 13px;
   font-weight: 500;
 }
 
 .mpc-yearselect select {
-    color: black;
+  color: #fff;
   margin-left: 0.5rem;
   font-size: 12px;
   padding: 0.3rem 0.5rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  background: #f8f8f8;
+  border: 1px solid #444;
+  background: #1c1c1c;
 }
 
 /* Month Block */
@@ -175,26 +176,27 @@ body, .mpc-page {
 .mpc-month-block h4 {
   font-size: 13px;
   font-weight: 500;
-  background: #f2f2f2;
+  background: #222;
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s, border 0.2s;
   margin: 0.4rem 0;
+  color: #f0f0f0;
 }
 
 .mpc-month-block h4:hover {
-  background: #e8e8e8;
-  border: 1px solid #ddd;
+  background: #333;
+  border: 1px solid #444;
 }
 
 /* Record Block */
 .mpc-record {
-  border: 1px solid #e0e0e0;
-  padding: 0.75rem;
-  border-radius: 6px;
+  border: 1px solid #333;
+  padding: 0.6rem;
+  border-radius: 5px;
   margin-bottom: 0.5rem;
-  background: #fcfcfc;
+  background: #1b1b1b;
 }
 
 .mpc-record input,
@@ -205,10 +207,10 @@ body, .mpc-page {
   padding: 0.4rem 0.5rem;
   margin: 0.25rem 0;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   border-radius: 4px;
-  background: #fdfdfd;
-  color: black;
+  background: #222;
+  color: #fff;
 }
 
 .mpc-record button {
@@ -227,31 +229,7 @@ body, .mpc-page {
   background: #205d5f;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .mpc-form {
-    grid-template-columns: 1fr;
-  }
-
-  .mpc-modal-content {
-    padding: 1rem;
-    max-height: 95vh;
-  }
-
-  .mpc-form__input,
-  .mpc-search__input {
-    font-size: 12px;
-  }
-
-  .mpc-modal-content h3 {
-    font-size: 14px;
-  }
-
-  .mpc-record button {
-    font-size: 11px;
-  }
-}
-
+/* Checkbox */
 .mpc-paid-checkbox {
   display: flex;
   align-items: center;
@@ -267,7 +245,7 @@ body, .mpc-page {
   border-radius: 4px;
   cursor: pointer;
   position: relative;
-  background-color: #fff;
+  background-color: #121212;
 }
 
 .mpc-paid-checkbox input[type="checkbox"]:checked {
@@ -287,4 +265,33 @@ body, .mpc-page {
 
 .mpc-paid-checkbox input[type="checkbox"]:checked::after {
   display: block;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .mpc-form {
+    grid-template-columns: 1fr;
+  }
+
+  .mpc-modal-content {
+    padding: 1rem;
+    max-height: 95vh;
+  }
+
+  .mpc-form__input,
+  .mpc-search__input {
+    font-size: 12px;
+  }
+
+  .mpc-modal-content h3 {
+    font-size: 13px;
+  }
+
+  .mpc-record button {
+    font-size: 11px;
+  }
+}
+
+.mpc-personlist__item_ul{
+  padding: 1rem;
 }

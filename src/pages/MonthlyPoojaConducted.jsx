@@ -337,7 +337,7 @@ const MonthlyPoojaConducted = () => {
       <div className="mpc-section mpc-personlist">
         <h3 className="mpc-section__title">Performers</h3>
         <input type="text" placeholder="Search..." className="mpc-search__input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} />
-        <ul>
+        <ul className='mpc-personlist__item_ul'>
           {persons.filter(p =>
             p.name.toLowerCase().includes(searchQuery) ||
             p.phone.includes(searchQuery) ||

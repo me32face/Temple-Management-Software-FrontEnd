@@ -1,44 +1,45 @@
 .staff-alt-container {
   min-height: 100vh;
   max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #fafafa;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin: 1rem auto;
+  padding: 1.2rem;
+  background: #121212;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   font-family: 'Roboto', sans-serif;
+  color: #e0e0e0;
 }
 
 .staff-alt-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
-  color: #333;
-  margin-bottom: 2rem;
+  color: #f3e5f5;
+  margin-bottom: 1.2rem;
 }
 
 .staff-alt-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .staff-alt-fields {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
   justify-content: space-between;
 }
 
 .staff-alt-input,
 .staff-alt-select {
-  color: black;
+  color: #f5f5f5;
+  background-color: #1e1e1e;
   flex: 1 1 30%;
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  background-color: #fff;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #444;
+  border-radius: 5px;
+  font-size: 0.85rem;
   transition: 0.3s ease;
 }
 
@@ -46,18 +47,19 @@
 .staff-alt-select:focus {
   border-color: #6c63ff;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
 }
 
 .staff-alt-submit-btn {
   align-self: flex-end;
-  padding: 10px 24px;
+  padding: 0.5rem 1.25rem;
   background-color: #6c63ff;
   color: #fff;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 5px;
+  font-weight: 600;
   cursor: pointer;
+  font-size: 0.85rem;
   transition: background-color 0.3s ease;
 }
 
@@ -72,53 +74,56 @@
 .staff-alt-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 0.85rem;
+  background-color: #1a1a1a;
+  color: #eee;
 }
 
 .staff-alt-table th,
 .staff-alt-table td {
-  padding: 14px;
-  border-bottom: 1px solid #eee;
+  padding: 0.6rem;
+  border-bottom: 1px solid #333;
   text-align: left;
 }
 
 .staff-alt-table th {
-  background-color: #f0f0f0;
-  color: #444;
+  background-color: #2a2a2a;
+  color: #ddd;
 }
 
 .staff-alt-table tr:hover {
-  background-color: #f9f9f9;
+  background-color: #2c2c2c;
 }
 
 .staff-alt-btn {
-  padding: 6px 14px;
+  padding: 0.4rem 0.8rem;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
-  margin-right: 6px;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
   cursor: pointer;
   transition: 0.3s ease;
 }
 
 .staff-alt-btn.edit {
-  background-color: #2ecc71;
-  color: white;
+  background-color: #27ae60;
+  color: #fff;
 }
 
 .staff-alt-btn.edit:hover {
-  background-color: #27ae60;
+  background-color: #1e8449;
 }
 
 .staff-alt-btn.delete {
   background-color: #e74c3c;
-  color: white;
+  color: #fff;
 }
 
 .staff-alt-btn.delete:hover {
   background-color: #c0392b;
 }
 
+/* Mobile adjustments */
 @media (max-width: 768px) {
   .staff-alt-fields {
     flex-direction: column;
