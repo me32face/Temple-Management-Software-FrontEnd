@@ -14,7 +14,8 @@ const PoojaForm = () => {
     amount: '',
     paymentMethod: 'Cash',
     paymentProof: '',
-    devotees: [{ name: '', nakshathra: '' }]
+    devotees: [{ name: '', nakshathra: '' }],
+    paymentPending: false 
   });
 
   const [receiptInfo, setReceiptInfo] = useState(null);
@@ -171,6 +172,20 @@ const PoojaForm = () => {
             </select>
           </div>
 
+          <div className="pfm-field pfm-field--payment-pending">
+            <label className="pfm-label">
+              <input
+                type="checkbox"
+                name="paymentPending"
+                checked={poojaData.paymentPending}
+                onChange={(e) =>
+                  setPoojaData({ ...poojaData, paymentPending: e.target.checked })
+                }
+              />{' '}
+              Payment Pending
+            </label>
+          </div>
+
           <div className="pfm-field pfm-field--payment-proof">
             <label className="pfm-label">Payment Proof URL</label>
             <input
@@ -234,6 +249,16 @@ const PoojaForm = () => {
             <p><strong>Date:</strong> {format(receiptInfo.date, 'dd-MM-yyyy')}</p>
             <p><strong>Amount:</strong> ₹{receiptInfo.amount}</p>
             <p><strong>Payment Method:</strong> {receiptInfo.paymentMethod}</p>
+            <p><strong>Payment Pending:</strong> {receiptInfo.paymentPending ? 'Yes' : 'No'}</p>
+            {receiptInfo.paymentProof && (
+              <p>
+                <strong>Payment Proof:</strong>{' '}
+                <a href={receiptInfo.paymentProof} target="_blank" rel="noopener noreferrer">
+                  View
+                </a>
+              </p>
+            )}
+
             <div>
               <strong>Devotees:</strong>
               <ul className="pfm-receipt-devotees">

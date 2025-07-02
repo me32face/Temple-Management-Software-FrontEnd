@@ -10,6 +10,7 @@ const DashboardSummary = () => {
   const [type, setType] = useState('monthly');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  const [includeUnpaid, setIncludeUnpaid] = useState(false); // NEW
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ const DashboardSummary = () => {
 
   const fetchData = async () => {
     const token = localStorage.getItem('token');
-
     if (!token) {
       Swal.fire('Unauthorized', 'Please login first', 'warning');
       navigate('/login');
@@ -27,7 +27,7 @@ const DashboardSummary = () => {
     try {
       setLoading(true);
 
-      const params = { type };
+      const params = { type, includeUnpaid };
       if (type === 'custom') {
         if (!fromDate || !toDate) {
           setLoading(false);
@@ -55,7 +55,7 @@ const DashboardSummary = () => {
 
   useEffect(() => {
     fetchData();
-  }, [type, fromDate, toDate]);
+  }, [type, fromDate, toDate, includeUnpaid]); // includeUnpaid added
 
   if (loading) {
     return <LoadingPage />;
@@ -98,6 +98,15 @@ const DashboardSummary = () => {
             </label>
           </div>
         )}
+
+        <label style={{ marginLeft: '1rem' }}>
+          <input
+            type="checkbox"
+            checked={includeUnpaid}
+            onChange={() => setIncludeUnpaid(!includeUnpaid)}
+          />{' '}
+          Add Not Paid also
+        </label>
       </div>
 
       <div className="dash-summary__grid">
@@ -115,7 +124,7 @@ const DashboardSummary = () => {
         </div>
         <div className="dash-summary__card">
           <h2>Expenses</h2>
-          <p>₹ {data.expenseTotal}</p>
+          <p>₹ {data.expenseTotal}</p>  
         </div>
         <div className="dash-summary__card">
           <h2>Devotees</h2>
