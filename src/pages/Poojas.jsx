@@ -19,6 +19,8 @@ const PoojaForm = () => {
 
   const [receiptInfo, setReceiptInfo] = useState(null);
   const printRef = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const API = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token');
@@ -47,10 +49,15 @@ const PoojaForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isSubmitting) return; // Prevent double submission
+
+    setIsSubmitting(true);
+
     try {
       const submissionData = {
         ...poojaData,
-        date: format(poojaData.date, 'yyyy-MM-dd') // ISO format for API
+        date: format(poojaData.date, 'yyyy-MM-dd')
       };
 
       const res = await axios.post(`${API}/api/poojas`, submissionData, {
@@ -72,7 +79,7 @@ const PoojaForm = () => {
         ...poojaData
       });
 
-      // Reset form after submit
+      // Reset form
       setPoojaData({
         manualReceiptNumber: '',
         poojaName: '',
@@ -85,6 +92,8 @@ const PoojaForm = () => {
 
     } catch (err) {
       Swal.fire('Error', err.response?.data?.msg || 'Something went wrong', 'error');
+    } finally {
+      setIsSubmitting(false); // Re-enable submit
     }
   };
 
@@ -211,8 +220,8 @@ const PoojaForm = () => {
             </button>
           </div>
 
-          <button type="submit" className="pfm-btn pfm-btn--submit">
-            Submit Pooja
+          <button type="submit" className="pfm-btn pfm-btn--submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Submit Pooja'}
           </button>
         </form>
 

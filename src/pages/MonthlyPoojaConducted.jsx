@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../assets/styles/MonthlyPoojaConducted.css';
+import LoadingPage from '../components/Loading';
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -22,6 +23,8 @@ const MonthlyPoojaConducted = () => {
   const [expandedMonths, setExpandedMonths] = useState({});
   const [editStates, setEditStates] = useState({});
   const [editPerson, setEditPerson] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   const token = localStorage.getItem('token');
   const API = import.meta.env.VITE_API_BASE_URL;
@@ -31,6 +34,7 @@ const MonthlyPoojaConducted = () => {
   }, []);
 
   const fetchPersons = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(`${API}/api/monthly-pooja/persons`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -42,6 +46,40 @@ const MonthlyPoojaConducted = () => {
       } else {
         Swal.fire('Error', 'Backend is likely waking up. Try again in 5 seconds.', 'info');
       }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const openModal = async (person, yearOverride = null) => {
+    setIsModalLoading(true);
+    try {
+      setSelectedPerson(person);
+      setModalOpen(true);
+
+      const res = await axios.get(`${API}/api/monthly-pooja/persons/${person._id}/records`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const selectedYear = yearOverride !== null ? yearOverride : year;
+
+      const map = {};
+      res.data
+        .filter((r) => r.year === selectedYear)
+        .forEach((r) => {
+          if (!map[r.month]) map[r.month] = [];
+          map[r.month].push({
+            ...r,
+            isNew: false,
+            dateObjects: r.dates.map((d) => new Date(selectedYear, months.indexOf(r.month), d))
+          });
+        });
+
+      setRecordsByMonth(map);
+    } catch (err) {
+      Swal.fire('Error', 'Failed to load records', 'error');
+    } finally {
+      setIsModalLoading(false);
     }
   };
 
@@ -98,35 +136,6 @@ const MonthlyPoojaConducted = () => {
           Swal.fire('Error', 'Failed to delete person', 'error');
         }
       }
-    }
-  };
-
-  const openModal = async (person, yearOverride = null) => {
-    try {
-      setSelectedPerson(person);
-      setModalOpen(true);
-
-      const res = await axios.get(`${API}/api/monthly-pooja/persons/${person._id}/records`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      const selectedYear = yearOverride !== null ? yearOverride : year;
-
-      const map = {};
-      res.data
-        .filter((r) => r.year === selectedYear)
-        .forEach((r) => {
-          if (!map[r.month]) map[r.month] = [];
-          map[r.month].push({
-            ...r,
-            isNew: false,
-            dateObjects: r.dates.map((d) => new Date(selectedYear, months.indexOf(r.month), d))
-          });
-        });
-
-      setRecordsByMonth(map);
-    } catch (err) {
-      Swal.fire('Error', 'Failed to load records', 'error');
     }
   };
 
@@ -311,6 +320,8 @@ const MonthlyPoojaConducted = () => {
 
   return (
     <div className="mpc-page">
+      {isLoading && <LoadingPage/>}
+
       <div className="mpc-section mpc-addperson">
         <h3 className="mpc-section__title">{editPerson ? 'Edit Performer' : 'Add Performer'}</h3>
         <form className="mpc-form" onSubmit={handleAddOrUpdatePerson}>
@@ -335,14 +346,14 @@ const MonthlyPoojaConducted = () => {
           )
           .map((p) => (
             <li className="mpc-personlist__item" key={p._id}>
-            <div className="mpc-personlist__info">
+              <div className="mpc-personlist__info">
                 <span>{p.name} – {p.nakshatra} – {p.phone} – {p.poojaName || '—'}</span>
-            </div>
-            <div className="mpc-personlist__actions">
+              </div>
+              <div className="mpc-personlist__actions">
                 <button className="mpc-personlist__view" onClick={() => openModal(p)}>👁️ View</button>
                 <button className="mpc-personlist__edit" onClick={() => handleEditClick(p)}>✏️ Edit</button>
                 <button className="mpc-personlist__delete" onClick={() => handleDeletePerson(p._id)}>🗑️ Delete</button>
-            </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -352,114 +363,117 @@ const MonthlyPoojaConducted = () => {
         <div className="mpc-modal">
           <div className="mpc-modal-content">
             <button className="mpc-modal__close" onClick={() => setModalOpen(false)}>×</button>
-            <h3>{selectedPerson.name} · {selectedPerson.nakshatra} · {selectedPerson.poojaName || '—'}</h3>
-            <p>📞 {selectedPerson.phone} · 🏠 {selectedPerson.address}</p>
 
-            <div className="mpc-yearselect">
-              <label>Year:
-                <select value={year} onChange={async (e) => {
-                    const selectedYear = parseInt(e.target.value);
-                    setYear(selectedYear);
-                    setRecordsByMonth({}); // Clear previous data
-                    if (selectedPerson) {
-                        await openModal(selectedPerson, selectedYear); // Pass the selected year
-                    }
-                }}>
-                  {Array.from({ length: 11 }, (_, i) => 2020 + i).map((yr) => (
-                    <option key={yr} value={yr}>{yr}</option>
-                  ))}
-                </select>
-              </label>
-            </div>
+            {isModalLoading ? (
+              <LoadingPage/>
+            ) : (
+              <>
+                <h3>{selectedPerson.name} · {selectedPerson.nakshatra} · {selectedPerson.poojaName || '—'}</h3>
+                <p>📞 {selectedPerson.phone} · 🏠 {selectedPerson.address}</p>
 
-            {months.map((month) => (
-              <div key={month} className="mpc-month-block">
-                <h4 onClick={() => toggleMonth(month)}>{month}</h4>
-                {expandedMonths[month] && (recordsByMonth[month] || []).map((r, idx) => {
-                  const isEditing = editStates[`${month}_${idx}`] || r.isNew;
-                  return (
-                    <div key={r._id || r.tempId} className="mpc-record">
-                        {isEditing ? (
-                        <>
-                            <label>Date</label>
-                            <DatePicker
-                            selected={r.dateObjects[0] || null}
-                            onChange={(date) => {
-                                handleRecordChange(month, idx, 'dateObjects', date ? [date] : []);
-                            }}
-                            dateFormat="dd/MM/yyyy"
-                            className="mpc-date-input"
-                            placeholderText="Select date"
-                            isClearable
-                            showMonthDropdown
-                            showYearDropdown
-                            dropdownMode="select"
-                            />
-                            <input
-                            placeholder="Amount"
-                            type="number"
-                            value={r.amount}
-                            onChange={(e) => handleRecordChange(month, idx, 'amount', e.target.value)}
-                            />
-                            <div className="mpc-paid-checkbox">
+                <div className="mpc-yearselect">
+                  <label>Year:
+                    <select value={year} onChange={async (e) => {
+                        const selectedYear = parseInt(e.target.value);
+                        setYear(selectedYear);
+                        setRecordsByMonth({});
+                        if (selectedPerson) {
+                            await openModal(selectedPerson, selectedYear);
+                        }
+                    }}>
+                      {Array.from({ length: 11 }, (_, i) => 2020 + i).map((yr) => (
+                        <option key={yr} value={yr}>{yr}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                {months.map((month) => (
+                  <div key={month} className="mpc-month-block">
+                    <h4 onClick={() => toggleMonth(month)}>{month}</h4>
+                    {expandedMonths[month] && (recordsByMonth[month] || []).map((r, idx) => {
+                      const isEditing = editStates[`${month}_${idx}`] || r.isNew;
+                      return (
+                        <div key={r._id || r.tempId} className="mpc-record">
+                          {isEditing ? (
+                            <>
+                              <label>Date</label>
+                              <DatePicker
+                                selected={r.dateObjects[0] || null}
+                                onChange={(date) => {
+                                  handleRecordChange(month, idx, 'dateObjects', date ? [date] : []);
+                                }}
+                                dateFormat="dd/MM/yyyy"
+                                className="mpc-date-input"
+                                placeholderText="Select date"
+                                isClearable
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                              />
+                              <input
+                                placeholder="Amount"
+                                type="number"
+                                value={r.amount}
+                                onChange={(e) => handleRecordChange(month, idx, 'amount', e.target.value)}
+                              />
+                              <div className="mpc-paid-checkbox">
                                 <input
-                                    type="checkbox"
-                                    id={`paid-${month}-${idx}`}
-                                    checked={r.isPaid}
-                                    onChange={(e) => handleRecordChange(month, idx, 'isPaid', e.target.checked)}
+                                  type="checkbox"
+                                  id={`paid-${month}-${idx}`}
+                                  checked={r.isPaid}
+                                  onChange={(e) => handleRecordChange(month, idx, 'isPaid', e.target.checked)}
                                 />
                                 <label htmlFor={`paid-${month}-${idx}`}>Paid</label>
-                            </div>
-                            <select
-                            value={r.paymentMode}
-                            onChange={(e) => handleRecordChange(month, idx, 'paymentMode', e.target.value)}
-                            >
-                            <option value="">Mode</option>
-                            {paymentModes.map((m) => (
-                                <option key={m}>{m}</option>
-                            ))}
-                            </select>
-                            <textarea
-                            placeholder="Notes"
-                            value={r.notes}
-                            onChange={(e) => handleRecordChange(month, idx, 'notes', e.target.value)}
-                            />
-                            <button onClick={() => saveRecord(month, idx)}>Save</button>
-                            <button onClick={() => clearRecord(month, idx)} style={{ background: '#dc3545' }}>
+                              </div>
+                              <select
+                                value={r.paymentMode}
+                                onChange={(e) => handleRecordChange(month, idx, 'paymentMode', e.target.value)}
+                              >
+                                <option value="">Mode</option>
+                                {paymentModes.map((m) => (
+                                  <option key={m}>{m}</option>
+                                ))}
+                              </select>
+                              <textarea
+                                placeholder="Notes"
+                                value={r.notes}
+                                onChange={(e) => handleRecordChange(month, idx, 'notes', e.target.value)}
+                              />
+                              <button onClick={() => saveRecord(month, idx)}>Save</button>
+                              <button onClick={() => clearRecord(month, idx)} style={{ background: '#dc3545' }}>
                                 Clear
-                            </button>
-                            <button onClick={() => cancelRecord(month, idx)} style={{ background: '#6c757d' }}>
-                              Cancel
-                            </button>
-                        </>
-                        ) : (
-                        <>
-                          <p><strong>Date:</strong> {
-                            r.dateObjects && r.dateObjects.length > 0
-                                ? r.dateObjects
-                                    .sort((a, b) => a - b)
-                                    .map(d => d.toLocaleDateString('en-GB')) // Format as DD/MM/YYYY
-                                    .join(', ')
-                                : '—'
-                            }
-                          </p>
-                          <p><strong>Amount:</strong> ₹{r.amount || 0}</p>
-                          <p><strong>Paid:</strong> {r.isPaid ? '✅' : '❌'}</p>
-                          <p><strong>Mode:</strong> {r.paymentMode || '—'}</p>
-                          <p><strong>Notes:</strong> {r.notes || '—'}</p>
-                          <button onClick={() => toggleEdit(month, idx)}>Edit</button>
-                        </>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+                              </button>
+                              <button onClick={() => cancelRecord(month, idx)} style={{ background: '#6c757d' }}>
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <p><strong>Date:</strong> {
+                                r.dateObjects && r.dateObjects.length > 0
+                                  ? r.dateObjects.sort((a, b) => a - b).map(d => d.toLocaleDateString('en-GB')).join(', ')
+                                  : '—'
+                              }</p>
+                              <p><strong>Amount:</strong> ₹{r.amount || 0}</p>
+                              <p><strong>Paid:</strong> {r.isPaid ? '✅' : '❌'}</p>
+                              <p><strong>Mode:</strong> {r.paymentMode || '—'}</p>
+                              <p><strong>Notes:</strong> {r.notes || '—'}</p>
+                              <button onClick={() => toggleEdit(month, idx)}>Edit</button>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default MonthlyPoojaConducted;
