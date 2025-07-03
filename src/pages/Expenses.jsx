@@ -7,13 +7,14 @@ import '../assets/styles/Expenses.css';
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
+  const [search, setSearch] = useState('');
   const [formData, setFormData] = useState({
     date: new Date(),
     amount: '',
     purpose: '',
     category: '',
     paymentMethod: 'Cash',
-    proof: ''
+    note: ''
   });
   const [editingId, setEditingId] = useState(null);
 
@@ -31,7 +32,6 @@ const Expenses = () => {
       });
       setExpenses(res.data);
     } catch (err) {
-      console.error(err);
       Swal.fire('Error', 'Failed to fetch expenses', 'error');
     }
   };
@@ -69,12 +69,11 @@ const Expenses = () => {
         purpose: '',
         category: '',
         paymentMethod: 'Cash',
-        proof: ''
+        note: ''
       });
       setEditingId(null);
       fetchExpenses();
     } catch (err) {
-      console.error(err);
       Swal.fire('Error', err.response?.data?.msg || 'Something went wrong', 'error');
     }
   };
@@ -86,7 +85,7 @@ const Expenses = () => {
       purpose: expense.purpose,
       category: expense.category,
       paymentMethod: expense.paymentMethod,
-      proof: expense.proof
+      note: expense.note || ''
     });
     setEditingId(expense._id);
   };
@@ -101,14 +100,27 @@ const Expenses = () => {
       Swal.fire('Deleted', 'Expense deleted', 'success');
       fetchExpenses();
     } catch (err) {
-      console.error(err);
       Swal.fire('Error', 'Failed to delete', 'error');
     }
   };
 
+  const filteredExpenses = expenses.filter(exp =>
+    `${exp.amount} ${exp.purpose} ${exp.category} ${exp.paymentMethod} ${exp.note || ''}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
   return (
     <div className="expenses-container">
       <h2 className="expenses-title">Expenses</h2>
+
+      <input
+        type="text"
+        className="expenses-search"
+        placeholder="Search expenses..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <form className="expenses-form" onSubmit={handleSubmit}>
         <DatePicker
@@ -155,10 +167,10 @@ const Expenses = () => {
         </select>
         <input
           type="text"
-          name="proof"
+          name="note"
           className="expenses-input"
-          placeholder="Proof URL (optional)"
-          value={formData.proof}
+          placeholder="Additional notes (optional)"
+          value={formData.note}
           onChange={handleChange}
         />
 
@@ -170,40 +182,38 @@ const Expenses = () => {
       <div className="expenses-table-container">
         <table className="expenses-table">
           <thead>
-            <tr>
+            <tr> 
               <th>Date</th>
               <th>Amount</th>
               <th>Purpose</th>
               <th>Category</th>
               <th>Payment</th>
-              <th>Proof</th>
+              <th>Note</th>
+              <th>Created</th>
+              <th>Updated</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {expenses.map(exp => (
+            {filteredExpenses.map(exp => (
               <tr key={exp._id}>
                 <td>{new Date(exp.date).toLocaleDateString()}</td>
                 <td>{exp.amount}</td>
                 <td>{exp.purpose}</td>
                 <td>{exp.category}</td>
                 <td>{exp.paymentMethod}</td>
+                <td>{exp.note || '—'}</td>
+                <td>{new Date(exp.createdAt).toLocaleString()}</td>
+                <td>{new Date(exp.updatedAt).toLocaleString()}</td>
                 <td>
-                  {exp.proof ? (
-                    <a href={exp.proof} target="_blank" rel="noreferrer">
-                      View
-                    </a>
-                  ) : (
-                    'N/A'
-                  )}
-                </td>
-                <td>
-                  <button className="expenses-btn edit" onClick={() => handleEdit(exp)}>
-                    Edit
-                  </button>
-                  <button className="expenses-btn delete" onClick={() => handleDelete(exp._id)}>
-                    Delete
-                  </button>
+                  <div className="expenses-actions">
+                    <button className="expenses-btn edit" onClick={() => handleEdit(exp)}>
+                      Edit
+                    </button>
+                    <button className="expenses-btn delete" onClick={() => handleDelete(exp._id)}>
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

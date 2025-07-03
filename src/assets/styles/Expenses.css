@@ -1,6 +1,6 @@
 .expenses-container {
   min-height: 100vh;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 1rem auto;
   padding: 1.2rem;
   background: #121212;
@@ -8,10 +8,11 @@
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
   font-family: 'Segoe UI', sans-serif;
   color: #e0e0e0;
+  font-size: 0.82rem; /* ✅ reduced global font size */
 }
 
 .expenses-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem; /* ✅ reduced */
   color: #f3e5f5;
   margin-bottom: 1rem;
   text-align: center;
@@ -28,10 +29,10 @@
 .expenses-select {
   color: #fff;
   background-color: #1e1e1e;
-  padding: 0.5rem 0.75rem;
+  padding: 0.45rem 0.7rem;
   border: 1px solid #444;
   border-radius: 5px;
-  font-size: 0.85rem;
+  font-size: 0.78rem; /* ✅ reduced */
   transition: 0.3s;
 }
 
@@ -45,13 +46,13 @@
 
 .expenses-submit-btn {
   grid-column: span 2;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: #6c63ff;
   color: white;
   border: none;
   border-radius: 5px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.78rem; /* ✅ reduced */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -67,14 +68,14 @@
 .expenses-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.78rem; /* ✅ reduced */
   background-color: #1a1a1a;
   color: #eee;
 }
 
 .expenses-table th,
 .expenses-table td {
-  padding: 0.6rem 0.5rem;
+  padding: 0.5rem;
   text-align: left;
   border-bottom: 1px solid #333;
 }
@@ -89,9 +90,9 @@
 }
 
 .expenses-btn {
-  padding: 0.4rem 0.75rem;
-  font-size: 0.75rem;
-  margin-right: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.7rem; /* ✅ reduced */
+  margin-right: 0.4rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -135,9 +136,51 @@
 .react-datepicker__input-container input {
   width: 100%;
   padding: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.78rem; /* ✅ reduced */
   background-color: #1e1e1e;
   border: 1px solid #444;
   color: #fff;
   border-radius: 4px;
+}
+
+.expenses-search {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 0.8rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.8rem; /* ✅ reduced */
+  background-color: #1e1e1e;
+  color: #eee;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+.expenses-search:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .expenses-search {
+    width: 100%;
+    font-size: 0.75rem; /* ✅ reduced further for small screens */
+  }
+}
+
+/* Add this new class for the action cell */
+.expenses-actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.expenses-table td,
+.expenses-table th {
+  padding: 0.5rem;
+  vertical-align: middle; /* ✅ align vertically */
+  text-align: left;
+  border-bottom: 1px solid #333;
 }
