@@ -30,7 +30,9 @@ const Expenses = () => {
       const res = await axios.get(`${API}/api/expenses/`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setExpenses(res.data);
+      // Optional: Sort expenses by date descending
+      const sorted = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setExpenses(sorted);
     } catch (err) {
       Swal.fire('Error', 'Failed to fetch expenses', 'error');
     }
@@ -182,7 +184,7 @@ const Expenses = () => {
       <div className="expenses-table-container">
         <table className="expenses-table">
           <thead>
-            <tr> 
+            <tr>
               <th>Date</th>
               <th>Amount</th>
               <th>Purpose</th>
@@ -200,11 +202,11 @@ const Expenses = () => {
                 <td>{new Date(exp.date).toLocaleDateString()}</td>
                 <td>{exp.amount}</td>
                 <td>{exp.purpose}</td>
-                <td>{exp.category}</td>
+                <td>{exp.category || '—'}</td>
                 <td>{exp.paymentMethod}</td>
                 <td>{exp.note || '—'}</td>
-                <td>{new Date(exp.createdAt).toLocaleString()}</td>
-                <td>{new Date(exp.updatedAt).toLocaleString()}</td>
+                <td>{exp.createdAt ? new Date(exp.createdAt).toLocaleString() : '—'}</td>
+                <td>{exp.updatedAt ? new Date(exp.updatedAt).toLocaleString() : '—'}</td>
                 <td>
                   <div className="expenses-actions">
                     <button className="expenses-btn edit" onClick={() => handleEdit(exp)}>
