@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import PoojaList from './pages/PoojaList';
 import MonthlyPoojaConducted from './pages/MonthlyPoojaConducted';
 import LoadingPage from './components/Loading';
+import RamayanaParayanam from './pages/RamayanaParayanam';
 
 const App = () => (
   <Router>
@@ -29,6 +30,8 @@ const App = () => (
         <Route path="/staff" element={<ProtectedRoute><Staff /></ProtectedRoute>} />
         <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
         <Route path="/monthly-poojas" element={<ProtectedRoute><MonthlyPoojaConducted /></ProtectedRoute>} />
+        <Route path="/ramayana-parayanam" element={<ProtectedRoute><RamayanaParayanam /></ProtectedRoute>} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

@@ -101,3 +101,64 @@ body {
   font-weight: bold;
   color: #1abc9c;
 }
+
+
+.dash-summary__pages-list {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--card-bg, #f9f9f9);
+  border-radius: 8px;
+  color: var(--text-color, #000);
+}
+
+.dash-summary__nav-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dash-summary__nav-list li {
+  margin: 0;
+}
+
+.dash-summary__nav-list li a {
+  text-decoration: none;
+  color: var(--link-color, #2a4b7c);
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dash-summary__nav-list li a:hover {
+  background-color: var(--hover-bg, #e3eaff);
+  border-color: var(--hover-border, #b3cfff);
+}
+
+/* 🌙 Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .dash-summary__pages-list {
+    background-color: var(--card-bg-dark, #1e1e1e);
+    color: var(--text-color-dark, #eee);
+  }
+
+  .dash-summary__nav-list li a {
+    color: var(--link-color-dark, #a4c8ff);
+  }
+
+  .dash-summary__nav-list li a:hover {
+    background-color: var(--hover-bg-dark, #2a3b55);
+    border-color: var(--hover-border-dark, #3a5070);
+  }
+}
+
+/* 📱 Responsive tweaks if needed */
+@media (max-width: 600px) {
+  .dash-summary__nav-list {
+    justify-content: center;
+  }
+}

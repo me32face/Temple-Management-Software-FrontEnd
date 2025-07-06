@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/Dashboard.css';
 import LoadingPage from '../components/Loading';
+import { Link } from 'react-router-dom';
 
 const DashboardSummary = () => {
   const [data, setData] = useState(null);
@@ -130,6 +131,19 @@ const DashboardSummary = () => {
           <h2>Devotees</h2>
           <p>{data.devoteeCount}</p>
         </div>
+      </div>
+      <div className="dash-summary__pages-list">
+        <h3 style={{ marginTop: '2rem' }}>Navigate to Pages:</h3>
+        <ul className="dash-summary__nav-list">
+          <li><Link to="/donations">🪔 Donations</Link></li>
+          <li><Link to="/poojas">📿 Poojas</Link></li>
+          <li><Link to="/monthly-poojas">📆 Monthly Pooja</Link></li>
+          <li><Link to="/devotees">🙏 Devotees</Link></li>
+          <li><Link to="/staff">👥 Staff</Link></li>
+          <li><Link to="/expenses">💸 Expenses</Link></li>
+          <li><Link to="/ramayana-parayanam">📖 Ramayana Parayanam</Link></li>
+          <li><Link to="/">📊 Dashboard</Link></li>
+        </ul>
       </div>
     </div>
   );

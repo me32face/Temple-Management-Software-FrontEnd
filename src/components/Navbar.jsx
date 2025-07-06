@@ -29,7 +29,7 @@ const Navbar = () => {
             <ul className="nav-links-left">
               <li><Link className="nav-link" to="/">Dashboard</Link></li>
               <li><Link className="nav-link" to="/donations">Donations</Link></li>
-              <li><Link className="nav-link" to="/poojas">Poojas</Link></li>
+              <li><Link className="nav-link" to="/poojas">New Pooja</Link></li>
               <li><Link className="nav-link" to="/AllPoojas">All Poojas</Link></li>
               <li><Link className="nav-link" to="/devotees">Devotees</Link></li>
               <li><Link className="nav-link" to="/staff">Staff</Link></li>
