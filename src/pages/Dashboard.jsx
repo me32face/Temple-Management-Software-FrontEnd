@@ -142,6 +142,7 @@ const DashboardSummary = () => {
           <li><Link to="/staff">👥 Staff</Link></li>
           <li><Link to="/expenses">💸 Expenses</Link></li>
           <li><Link to="/ramayana-parayanam">📖 Ramayana Parayanam</Link></li>
+          <li><Link to="/old-pending-payments">🧾 Old Pending Payments</Link></li> {/* ✅ New line added */}
           <li><Link to="/">📊 Dashboard</Link></li>
         </ul>
       </div>

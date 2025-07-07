@@ -22,6 +22,22 @@ const PoojaList = () => {
   const API = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem('token');
 
+  const formatDate = (isoString, includeTime = false) => {
+    const dateObj = new Date(isoString);
+    const dd = String(dateObj.getDate()).padStart(2, '0');
+    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const yyyy = dateObj.getFullYear();
+    const datePart = `${dd}-${mm}-${yyyy}`;
+
+    if (includeTime) {
+      const time = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return `${datePart} ${time}`;
+    }
+
+    return datePart;
+  };
+
+
   useEffect(() => {
     axios
       .get(`${API}/api/poojas`, {
@@ -102,10 +118,20 @@ const PoojaList = () => {
         )
       );
     })
-    .sort((a, b) =>
-      poojasSortedByPending ? b.paymentPending - a.paymentPending : 0
-    )
-    .reverse();
+    .sort((a, b) => {
+      if (poojasSortedByPending) {
+        // Sort so that Not Paid (true) appears before Paid (false)
+        return a.paymentPending === b.paymentPending
+          ? new Date(b.createdAt) - new Date(a.createdAt) // newest first within status
+          : a.paymentPending
+          ? -1
+          : 1;
+      } else {
+        // Default sort: latest receipts on top
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+  });
+
 
   return (
     <div className="pl-container">
@@ -135,7 +161,7 @@ const PoojaList = () => {
                 Pending {poojasSortedByPending ? '🔽' : '🔼'}
               </th>
               <th>Pay</th>
-              <th>Proof</th>
+              <th style={{ minWidth: '150px' }}>Note/Proof</th>
               <th>Created</th>
               <th>Updated</th>
               <th>Devotees</th>
@@ -148,15 +174,21 @@ const PoojaList = () => {
                 <td>{p.receiptNumber}</td>
                 <td>{p.manualReceiptNumber || '-'}</td>
                 <td>{p.poojaName}</td>
-                <td>{new Date(p.date).toLocaleDateString()}</td>
+                <td>{formatDate(p.date)}</td>
                 <td>₹{p.amount}</td>
                 <td style={{ color: p.paymentPending ? 'red' : 'green', fontWeight: 'bold' }}>
                   {p.paymentPending ? 'Not Paid' : 'Paid'}
                 </td>
                 <td>{p.paymentMethod}</td>
-                <td>{p.paymentProof || '-'}</td>
-                <td>{new Date(p.createdAt).toLocaleString()}</td>
-                <td>{new Date(p.updatedAt).toLocaleString()}</td>
+                <td className="pl-proof-cell">
+                  {p.paymentProof ? (
+                    <span className="pl-proof-text">{p.paymentProof}</span>
+                  ) : (
+                    <span className="pl-proof-empty">-</span>
+                  )}
+                </td>
+                <td>{formatDate(p.createdAt, true)}</td>
+                <td>{formatDate(p.updatedAt, true)}</td>
                 <td className="pl-devotees-cell">
                   {p.devotees.map((d, idx) => (
                     <span key={idx} className="pl-devotee-pill">

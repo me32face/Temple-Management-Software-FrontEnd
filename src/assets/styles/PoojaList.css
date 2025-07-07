@@ -181,3 +181,27 @@
     padding: 0.3rem 0.4rem;
   }
 }
+
+.pl-table th:nth-child(8),
+.pl-table td:nth-child(8) {
+  min-width: 150px;
+}
+
+
+.pl-proof-cell {
+  max-width: 200px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.2;
+}
+
+.pl-proof-text {
+  display: inline-block;
+  color: #e0e0e0;
+  font-size: 0.7rem;
+}
+
+.pl-proof-empty {
+  color: #888;
+  font-style: italic;
+}

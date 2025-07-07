@@ -15,6 +15,7 @@ import PoojaList from './pages/PoojaList';
 import MonthlyPoojaConducted from './pages/MonthlyPoojaConducted';
 import LoadingPage from './components/Loading';
 import RamayanaParayanam from './pages/RamayanaParayanam';
+import OldPendingPayments from './pages/OldPendingPayments';
 
 const App = () => (
   <Router>
@@ -31,6 +32,7 @@ const App = () => (
         <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
         <Route path="/monthly-poojas" element={<ProtectedRoute><MonthlyPoojaConducted /></ProtectedRoute>} />
         <Route path="/ramayana-parayanam" element={<ProtectedRoute><RamayanaParayanam /></ProtectedRoute>} />
+        <Route path="/old-pending-payments" element={<ProtectedRoute><OldPendingPayments/></ProtectedRoute>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
